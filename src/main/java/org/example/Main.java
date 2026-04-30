@@ -5,7 +5,6 @@ import org.httpApiClasses.ApiContext.RequestValues.ComparisonAmountRequest;
 import org.httpApiClasses.ApiContext.RequestValues.ComparisonRequest;
 import org.httpApiClasses.ApiContext.RequestValues.EmptyRequest;
 import org.httpApiClasses.ApiContext.RequestValues.StandardRequest;
-import org.httpApiClasses.CustomError.InvalidContentOfContext;
 import org.httpApiClasses.Enums.SupportedEndPointEnum;
 import org.httpApiClasses.HttpsClientExtension;
 import org.httpApiClasses.RetrunClasses.*;
@@ -18,7 +17,6 @@ public class
 
 Main {
     static void main() {
-        // Create the client from file
 
         HttpsClientExtension client = HttpsClientExtension.fromFile("API_SETTINGS");
 

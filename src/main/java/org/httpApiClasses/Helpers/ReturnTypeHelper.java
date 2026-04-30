@@ -5,8 +5,12 @@ import org.httpApiClasses.RetrunClasses.PairAmountApiResult;
 import org.httpApiClasses.RetrunClasses.PairApiResult;
 import org.httpApiClasses.RetrunClasses.StandardApiResult;
 import org.httpApiClasses.RetrunClasses.*;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
@@ -35,25 +39,73 @@ public class ReturnTypeHelper {
     }
 
     private static StandardApiResult parseStandard(String json) {
-        // fill in once JSON shape is known
-        return new StandardApiResult();
+        JSONObject obj   = new JSONObject(json);
+        JSONObject rates = obj.getJSONObject("conversion_rates");
+
+        Map<String, Double> conversionRates = new HashMap<>();
+        for (String key : rates.keySet())
+            conversionRates.put(key, rates.getDouble(key));
+
+        return new StandardApiResult(
+                obj.getString("result"),
+                obj.getLong("time_last_update_unix"),
+                obj.getString("time_last_update_utc"),
+                obj.getLong("time_next_update_unix"),
+                obj.getString("time_next_update_utc"),
+                obj.getString("base_code"),
+                conversionRates
+        );
     }
 
     private static PairApiResult parsePair(String json) {
-        // fill in once JSON shape is known
-        return new PairApiResult();
+        JSONObject obj = new JSONObject(json);
+        return new PairApiResult(
+                obj.getString("result"),
+                obj.getLong("time_last_update_unix"),
+                obj.getString("time_last_update_utc"),
+                obj.getLong("time_next_update_unix"),
+                obj.getString("time_next_update_utc"),
+                obj.getString("base_code"),
+                obj.getString("target_code"),
+                obj.getDouble("conversion_rate")
+        );
     }
 
     private static PairAmountApiResult parsePairAmount(String json) {
-        // fill in once JSON shape is known
-        return new PairAmountApiResult();
+        JSONObject obj = new JSONObject(json);
+        return new PairAmountApiResult(
+                obj.getString("result"),
+                obj.getLong("time_last_update_unix"),
+                obj.getString("time_last_update_utc"),
+                obj.getLong("time_next_update_unix"),
+                obj.getString("time_next_update_utc"),
+                obj.getString("base_code"),
+                obj.getString("target_code"),
+                obj.getDouble("conversion_rate"),
+                obj.getDouble("conversion_result")
+        );
     }
 
     private static CurrencyCodeApiResult parseCurrencyCodes(String json) {
-        return new CurrencyCodeApiResult();
+        JSONObject obj       = new JSONObject(json);
+        JSONArray codesArray = obj.getJSONArray("supported_codes");
+
+        List<String[]> codes = new ArrayList<>();
+        for (int i = 0; i < codesArray.length(); i++) {
+            JSONArray pair = codesArray.getJSONArray(i);
+            codes.add(new String[]{ pair.getString(0), pair.getString(1) });
+        }
+
+        return new CurrencyCodeApiResult(obj.getString("result"), codes);
     }
 
     private static QuotaApiResult parseQuota(String json) {
-        return new QuotaApiResult();
+        JSONObject obj = new JSONObject(json);
+        return new QuotaApiResult(
+                obj.getString("result"),
+                obj.getInt("plan_quota"),
+                obj.getInt("requests_remaining"),
+                obj.getInt("refresh_day_of_month")
+        );
     }
 }
