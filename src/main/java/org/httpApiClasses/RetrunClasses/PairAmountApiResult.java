@@ -13,10 +13,17 @@ public class PairAmountApiResult implements IReturnType {
     private final double conversionRate;
     private final double conversionResult;
 
-    public PairAmountApiResult(String result, long timeLastUpdateUnix, String timeLastUpdateUtc,
-                               long timeNextUpdateUnix, String timeNextUpdateUtc,
-                               String baseCode, String targetCode,
-                               double conversionRate, double conversionResult) {
+    public PairAmountApiResult(
+        String result,
+        long timeLastUpdateUnix,
+        String timeLastUpdateUtc,
+        long timeNextUpdateUnix,
+        String timeNextUpdateUtc,
+        String baseCode,
+        String targetCode,
+        double conversionRate,
+        double conversionResult
+    ) {
         this.result             = result;
         this.timeLastUpdateUnix = timeLastUpdateUnix;
         this.timeLastUpdateUtc  = timeLastUpdateUtc;
