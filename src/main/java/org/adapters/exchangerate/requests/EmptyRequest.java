@@ -1,4 +1,20 @@
 package org.adapters.exchangerate.requests;
 
-public class EmptyRequest {
+import org.core.enums.HttpMethod;
+import org.core.holders.RequestHolder;
+import org.core.interfaces.IApiRequestValue;
+
+import java.net.URI;
+
+public class EmptyRequest implements IApiRequestValue {
+    private final String url;
+
+    public EmptyRequest(String url) {
+        this.url = url;
+    }
+
+    @Override
+    public RequestHolder convert() {
+        return new RequestHolder.Builder(URI.create(url), HttpMethod.GET).build();
+    }
 }
