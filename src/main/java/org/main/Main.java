@@ -1,8 +1,8 @@
 package org.main;
 
 
-import org.adapters.exchangerate.ExchangeRateAdapter;
-import org.adapters.exchangerate.results.*;
+import org.exempleCode.exchangerate.ExchangeRateAdapter;
+import org.exempleCode.exchangerate.results.*;
 import org.core.helpers.HttpRequestBuilder;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
