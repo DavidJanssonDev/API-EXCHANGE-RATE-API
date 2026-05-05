@@ -1,6 +1,6 @@
 package org.adapters.exchangerate.requests;
 
-import org.core.enums.HttpMethod;
+import org.core.enums.HttpMethodEnum;
 import org.core.holders.RequestHolder;
 import org.core.interfaces.IApiRequestValue;
 
@@ -25,6 +25,6 @@ public class ComparisonAmountRequest implements IApiRequestValue {
     @Override
     public RequestHolder convert() {
         URI uri = URI.create(baseUrl + apiKey + "/pair/" + from + "/" + to + "/" + amount);
-        return new RequestHolder.Builder(uri, HttpMethod.GET).build();
+        return new RequestHolder.Builder(uri, HttpMethodEnum.GET).build();
     }
 }

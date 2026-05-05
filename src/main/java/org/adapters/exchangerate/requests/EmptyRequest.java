@@ -1,6 +1,6 @@
 package org.adapters.exchangerate.requests;
 
-import org.core.enums.HttpMethod;
+import org.core.enums.HttpMethodEnum;
 import org.core.holders.RequestHolder;
 import org.core.interfaces.IApiRequestValue;
 
@@ -15,6 +15,6 @@ public class EmptyRequest implements IApiRequestValue {
 
     @Override
     public RequestHolder convert() {
-        return new RequestHolder.Builder(URI.create(url), HttpMethod.GET).build();
+        return new RequestHolder.Builder(URI.create(url), HttpMethodEnum.GET).build();
     }
 }

@@ -3,7 +3,7 @@ package org.adapters.exchangerate;
 import org.adapters.exchangerate.errors.*;
 import org.adapters.exchangerate.parsers.ExchangeRateParser;
 import org.adapters.exchangerate.requests.*;
-import org.core.enums.ApiKeyStyle;
+import org.core.enums.ApiKeyStyleEnum;
 import org.core.interfaces.IApiAdapter;
 import org.core.interfaces.IRequestError;
 import org.core.interfaces.IReturnType;
@@ -76,7 +76,7 @@ public class ExchangeRateAdapter implements IApiAdapter<IReturnType, IRequestErr
     public Optional<String> getApiKey() { return Optional.of(apiKey); }
 
     @Override
-    public ApiKeyStyle getKeyStyle() { return ApiKeyStyle.PATH; }
+    public ApiKeyStyleEnum getKeyStyle() { return ApiKeyStyleEnum.PATH; }
 
     @Override
     public Predicate<JSONObject> getSuccessCondition() {

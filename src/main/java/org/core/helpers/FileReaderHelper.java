@@ -6,8 +6,45 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 
+/**
+ * Utility for reading simple {@code key=value} configuration files from the
+ * classpath.
+ *
+ * <p>Format rules:</p>
+ * <ul>
+ *   <li>One entry per line: {@code KEY=value} or {@code KEY="value"}</li>
+ *   <li>Lines that are blank or start with {@code #} are skipped.</li>
+ *   <li>The {@code =} sign is the delimiter; only the first occurrence splits
+ *       key from value (allowing {@code =} inside values).</li>
+ *   <li>Surrounding double-quotes on the value are stripped automatically.</li>
+ * </ul>
+ *
+ * <p>Example file ({@code API_SETTINGS} in {@code src/main/resources/}):</p>
+ * <pre>
+ * # Exchange Rate API settings
+ * API_KEY="your-api-key-here"
+ * BASE_URL="https://v6.exchangerate-api.com/v6"
+ * </pre>
+ *
+ * <p>Usage:</p>
+ * <pre>{@code
+ * HashMap<String, String> settings = FileReaderHelper.readFromFile("API_SETTINGS");
+ * String key = settings.get("API_KEY");
+ * }</pre>
+ */
 public class FileReaderHelper {
 
+    /**
+     * Reads all {@code key=value} pairs from a classpath resource file.
+     *
+     * @param fileName the classpath-relative file name from the resource folder inside the main folder (no leading slash),
+     *                 e.g. {@code "API_SETTINGS"}
+     * @return a {@link HashMap} mapping trimmed keys to trimmed, unquoted values;
+     *         never {@code null}, but may be empty if the file contains no valid pairs
+     * @throws RuntimeException wrapping an {@link IOException} or
+     *                          {@link NullPointerException} if the file cannot be
+     *                          found or read
+     */
     public static HashMap<String, String> readFromFile(String fileName) {
         HashMap<String, String> settings = new HashMap<>();
 
